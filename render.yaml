@@ -2,6 +2,7 @@ services:
   - type: web
     name: spring-boot-admin-panel
     env: java
+    runtime: openjdk
     region: oregon
     buildCommand: "./gradlew build"
     startCommand: "java -jar build/libs/spring-boot-portfolio-admin.jar"
