@@ -50,4 +50,14 @@ public class WebsiteDate {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public WebsiteDate(Long id, String websiteText, String websiteImage, Category category) {
+        this.id = id;
+        this.websiteText = websiteText;
+        this.websiteImage = websiteImage;
+        this.category = category;
+    }
+
+    public WebsiteDate() {
+    }
 }

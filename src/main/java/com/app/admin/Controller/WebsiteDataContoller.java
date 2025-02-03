@@ -6,10 +6,9 @@ import com.app.admin.Repository.CategoryRepository;
 import com.app.admin.Service.WebsiteDateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/website")
@@ -29,6 +28,10 @@ public class WebsiteDataContoller {
     @PostMapping
     public String createData(@RequestBody WebsiteDate websiteDate) {
         try {
+
+            if (websiteDate.getCategory() == null || websiteDate.getCategory().getId() == null){
+                throw new IllegalArgumentException("Category ID must be provided");
+            }
             Category category = categoryRepository.findById(websiteDate.getCategory().getId())
                     .orElseThrow(() -> new RuntimeException("Category not found"));
 
@@ -41,6 +44,21 @@ public class WebsiteDataContoller {
             e.printStackTrace();
             return "Error: " + e.getMessage();
         }
+    }
+
+    @GetMapping
+    public List<WebsiteDate> get(){
+        return websiteDateService.get();
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteWeb(@PathVariable Long id){
+        return websiteDateService.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    public String updateData(@PathVariable Long id, @RequestBody WebsiteDate websiteDate) {
+        return websiteDateService.update(id , websiteDate);
     }
 
 }

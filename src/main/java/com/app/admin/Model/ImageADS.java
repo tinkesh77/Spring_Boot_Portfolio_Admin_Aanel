@@ -20,6 +20,16 @@ public class ImageADS {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    public ImageADS() {
+    }
+
+    public ImageADS(Long id, String imageAdsText, String imageAdsImageUrl, Category category) {
+        this.id = id;
+        this.imageAdsText = imageAdsText;
+        this.imageAdsImageUrl = imageAdsImageUrl;
+        this.category = category;
+    }
+
     public String getImageAdsText() {
         return imageAdsText;
     }

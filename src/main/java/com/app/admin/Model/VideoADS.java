@@ -20,6 +20,16 @@ public class VideoADS {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    public VideoADS() {
+    }
+
+    public VideoADS(Long id, String videoAdsText, String videoAdsVideoUrl, Category category) {
+        this.id = id;
+        this.videoAdsText = videoAdsText;
+        this.videoAdsVideoUrl = videoAdsVideoUrl;
+        this.category = category;
+    }
+
     public String getVideoAdsText() {
         return videoAdsText;
     }
@@ -51,5 +61,6 @@ public class VideoADS {
     public void setId(Long id) {
         this.id = id;
     }
+
 
 }
