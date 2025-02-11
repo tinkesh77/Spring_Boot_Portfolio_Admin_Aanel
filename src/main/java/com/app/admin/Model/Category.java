@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 
 import java.util.List;
 
-@Entity
+    @Entity
 @Table(name = "category")
 public class Category {
 
@@ -28,6 +28,8 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL , orphanRemoval = true  )
     @JsonIgnore
     private List<VideoADS> video;
+
+    private String categoryImage;
 
     public String getCategoryName() {
         return categoryName;
@@ -79,16 +81,25 @@ public class Category {
                 ", video=" + video +
                 '}';
     }
-
-    public Category(Long id, List<WebsiteDate> website, String categoryName, List<ImageADS> images, List<VideoADS> video) {
-        this.id = id;
-        this.website = website;
-        this.categoryName = categoryName;
-        this.images = images;
-        this.video = video;
-    }
     public Category(Long id) {
         this.id = id;
     }
     public Category() {}
+
+    public String getCategoryImage() {
+        return categoryImage;
+    }
+
+    public void setCategoryImage(String categoryImage) {
+        this.categoryImage = categoryImage;
+    }
+
+    public Category(Long id, String categoryImage, List<VideoADS> video, List<ImageADS> images, String categoryName, List<WebsiteDate> website) {
+        this.id = id;
+        this.categoryImage = categoryImage;
+        this.video = video;
+        this.images = images;
+        this.categoryName = categoryName;
+        this.website = website;
+    }
 }

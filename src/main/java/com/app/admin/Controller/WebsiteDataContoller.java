@@ -7,10 +7,14 @@ import com.app.admin.Service.WebsiteDateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/website")
 public class WebsiteDataContoller {
 
@@ -26,29 +30,26 @@ public class WebsiteDataContoller {
     }
 
     @PostMapping
-    public String createData(@RequestBody WebsiteDate websiteDate) {
-        try {
+    public ResponseEntity<Map<String, String>> createData(@RequestParam("WebsiteName") String websiteName,
+                                                          @RequestParam("WebsiteLink") String websiteLink,
+                                                          @RequestParam("WebsiteImage") MultipartFile file,
+                                                          @RequestParam("id") Long catId) {
 
-            if (websiteDate.getCategory() == null || websiteDate.getCategory().getId() == null){
-                throw new IllegalArgumentException("Category ID must be provided");
-            }
-            Category category = categoryRepository.findById(websiteDate.getCategory().getId())
-                    .orElseThrow(() -> new RuntimeException("Category not found"));
-
-            websiteDate.setCategory(category);
-
-            websiteDateService.create(websiteDate);
-
-            return "Website data inserted successfully";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Error: " + e.getMessage();
+        if (websiteName == null || file == null) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Invalid data, website name or image is missing.");
+            return ResponseEntity.badRequest().body(errorResponse);
         }
+
+        return websiteDateService.create(websiteName, websiteLink ,file, catId);
     }
 
     @GetMapping
-    public List<WebsiteDate> get(){
-        return websiteDateService.get();
+    public List<WebsiteDate> get(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "5") int pageSize
+    ){
+        return websiteDateService.get(pageNumber , pageSize);
     }
 
     @DeleteMapping("/{id}")
@@ -57,8 +58,16 @@ public class WebsiteDataContoller {
     }
 
     @PutMapping("/{id}")
-    public String updateData(@PathVariable Long id, @RequestBody WebsiteDate websiteDate) {
-        return websiteDateService.update(id , websiteDate);
+    public String updateData(
+            @RequestParam("WebsiteId") Long websiteId ,
+            @RequestParam("WebsiteName") String websiteTitle ,
+            @RequestParam("WebsiteLink") String websiteLink ,
+            @RequestParam (value = "WebsiteImage", required = false) MultipartFile file ,
+            @RequestParam("id") Long categoryId
+    ) {
+        return websiteDateService.update(websiteId ,websiteTitle , websiteLink , file , categoryId);
     }
 
 }
+
+

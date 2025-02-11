@@ -15,6 +15,8 @@ public class WebsiteDate {
 
     private String websiteImage;
 
+    private String websiteLink;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
         private Category category;
@@ -59,5 +61,13 @@ public class WebsiteDate {
     }
 
     public WebsiteDate() {
+    }
+
+    public String getWebsiteLink() {
+        return websiteLink;
+    }
+
+    public void setWebsiteLink(String websiteLink) {
+        this.websiteLink = websiteLink;
     }
 }

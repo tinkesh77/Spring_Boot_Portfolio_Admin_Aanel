@@ -4,10 +4,12 @@ import com.app.admin.Model.ImageADS;
 import com.app.admin.Service.ImageAdsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/images")
 public class ImageContoller {
 
@@ -19,13 +21,14 @@ public class ImageContoller {
     }
 
     @PostMapping
-    public String create(@RequestBody ImageADS imageADS){
-        return imageAdsService.create(imageADS);
+    public String create(@RequestParam("imageAds")MultipartFile file, @RequestParam("catId") Long catId){
+        return imageAdsService.create(file , catId);
     }
 
     @GetMapping
-    public List<ImageADS> get(){
-        return imageAdsService.getAll();
+    public List<ImageADS> get( @RequestParam(defaultValue = "0") int pageNumber,
+                               @RequestParam(defaultValue = "5") int pageSize){
+        return imageAdsService.get(pageNumber , pageSize);
     }
 
     @DeleteMapping("/{id}")
@@ -33,8 +36,10 @@ public class ImageContoller {
         return imageAdsService.delete(id);
     }
 
-    @PutMapping("/{id}")
-    public String update(@PathVariable Long id , @RequestBody ImageADS imageADS){
-        return imageAdsService.update(id , imageADS);
+    @PutMapping
+    public String update(@RequestParam("catId") Long catId ,
+                         @RequestParam("imgId") Long imgId,
+                         @RequestParam("newImg") MultipartFile file ){
+        return imageAdsService.update(catId , imgId , file);
     }
 }
