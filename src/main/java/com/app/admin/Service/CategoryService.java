@@ -46,8 +46,8 @@ public class CategoryService {
         categoryRepository.delete(category);
     }
 
-    public List<Category> getAll(){
-        return categoryRepository.findAll();
+    public ResponseEntity<List<Category>> getAll(){
+        return ResponseEntity.ok(categoryRepository.findAll());
     }
 
     public List<Category> get(int pageNumber, int pageSize) {
@@ -69,5 +69,10 @@ public class CategoryService {
         categoryRepository.save(existCategory);
 
         return "Update Success";
+    }
+
+    public ResponseEntity<Long> getTotal(){
+        Long count = categoryRepository.count();
+        return ResponseEntity.ok(count);
     }
 }

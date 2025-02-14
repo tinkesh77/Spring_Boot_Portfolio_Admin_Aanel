@@ -1,6 +1,7 @@
 package com.app.admin.Controller;
 
 import com.app.admin.Model.Category;
+import com.app.admin.Model.ImageADS;
 import com.app.admin.Model.WebsiteDate;
 import com.app.admin.Repository.CategoryRepository;
 import com.app.admin.Service.WebsiteDateService;
@@ -66,6 +67,16 @@ public class WebsiteDataContoller {
             @RequestParam("id") Long categoryId
     ) {
         return websiteDateService.update(websiteId ,websiteTitle , websiteLink , file , categoryId);
+    }
+
+    @GetMapping("/total")
+    public ResponseEntity<Long> totalCategories(){
+        return websiteDateService.getTotal();
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<WebsiteDate>> getAll(){
+        return websiteDateService.getAll();
     }
 
 }

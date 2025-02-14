@@ -38,6 +38,11 @@ public class CategoryController {
         return categoryService.update(categoryName, imageUrl, id);
     }
 
+    @GetMapping("/total")
+    public ResponseEntity<Long> totalCategories(){
+        return categoryService.getTotal();
+    }
+
 
 
 
@@ -56,6 +61,11 @@ public class CategoryController {
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Category>> getAll(){
+        return categoryService.getAll();
     }
 
     @PostMapping

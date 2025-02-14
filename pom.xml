@@ -71,6 +71,31 @@
 			<artifactId>dotenv-java</artifactId>
 			<version>2.2.4</version>
 		</dependency>
+
+<!--			&lt;!&ndash; Core Spring Security Dependency &ndash;&gt;-->
+<!--			<dependency>-->
+<!--				<groupId>org.springframework.boot</groupId>-->
+<!--				<artifactId>spring-boot-starter-security</artifactId>-->
+<!--			</dependency>-->
+
+<!--			&lt;!&ndash; Optional Spring Security Config for configuring HTTP security &ndash;&gt;-->
+<!--			<dependency>-->
+<!--				<groupId>org.springframework.security</groupId>-->
+<!--				<artifactId>spring-security-config</artifactId>-->
+<!--			</dependency>-->
+
+<!--			&lt;!&ndash; Optional Spring Security Web Dependency for web-specific security features &ndash;&gt;-->
+<!--			<dependency>-->
+<!--				<groupId>org.springframework.security</groupId>-->
+<!--				<artifactId>spring-security-web</artifactId>-->
+<!--			</dependency>-->
+
+<!--			&lt;!&ndash; Optional Core Dependency for authentication/authorization features &ndash;&gt;-->
+<!--			<dependency>-->
+<!--				<groupId>org.springframework.security</groupId>-->
+<!--				<artifactId>spring-security-core</artifactId>-->
+<!--			</dependency>-->
+
 	</dependencies>
 
 	<build>

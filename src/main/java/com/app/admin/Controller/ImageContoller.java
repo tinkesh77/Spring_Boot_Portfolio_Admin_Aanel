@@ -3,6 +3,7 @@ package com.app.admin.Controller;
 import com.app.admin.Model.ImageADS;
 import com.app.admin.Service.ImageAdsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,5 +42,15 @@ public class ImageContoller {
                          @RequestParam("imgId") Long imgId,
                          @RequestParam("newImg") MultipartFile file ){
         return imageAdsService.update(catId , imgId , file);
+    }
+
+    @GetMapping("/total")
+    public ResponseEntity<Long> totalCategories(){
+        return imageAdsService.getTotal();
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<ImageADS>> getAll(){
+        return imageAdsService.getAll();
     }
 }

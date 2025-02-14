@@ -5,13 +5,12 @@ import com.app.admin.Model.ImageADS;
 import com.app.admin.Repository.CategoryRepository;
 import com.app.admin.Repository.ImageADSRepository;
 import com.app.admin.Service.impl.CloudinaryService;
-import com.app.admin.dto.ImageADSRequest;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -86,5 +85,14 @@ public class ImageAdsService {
         imageADSRepository.save(imageADS);
 
         return "Update Success";
+    }
+
+    public ResponseEntity<Long> getTotal(){
+        Long count = imageADSRepository.count();
+        return ResponseEntity.ok(count);
+    }
+
+    public ResponseEntity<List<ImageADS>> getAll(){
+        return ResponseEntity.ok(imageADSRepository.findAll());
     }
 }

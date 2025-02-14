@@ -2,6 +2,7 @@ package com.app.admin.Service;
 
 
 import com.app.admin.Model.Category;
+import com.app.admin.Model.ImageADS;
 import com.app.admin.Model.WebsiteDate;
 import com.app.admin.Repository.CategoryRepository;
 import com.app.admin.Repository.WebsiteDateRepository;
@@ -71,6 +72,11 @@ public class WebsiteDateService {
         return "Deleted Susses";
     }
 
+    public ResponseEntity<Long> getTotal(){
+        Long count = websiteDateRepository.count();
+        return ResponseEntity.ok(count);
+    }
+
     public List<WebsiteDate> get(int pageNumber , int pageSize){
         Pageable p = PageRequest.of(pageNumber , pageSize);
         Page<WebsiteDate> websiteDatePage = websiteDateRepository.findAll(p);
@@ -100,6 +106,10 @@ public class WebsiteDateService {
         // finally saving this data
         websiteDateRepository.save(existingData);
         return "Update susees";
+    }
+
+    public ResponseEntity<List<WebsiteDate>> getAll(){
+        return ResponseEntity.ok(websiteDateRepository.findAll());
     }
 
 }
